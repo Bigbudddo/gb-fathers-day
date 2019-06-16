@@ -1,6 +1,6 @@
 /*
 
- BACKGROUNDTILES.H
+ PLAYERSPRITES.H
 
  Include File.
 
@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 7
+  Tiles                : 0 to 1
 
   Palette colors       : None.
   SGB Palette          : None.
@@ -24,8 +24,8 @@
 
 
 /* Bank of tiles. */
-#define backgroundtilesBank 0
+#define playerspritesBank 0
 /* Start of tile array. */
-extern unsigned char backgroundtiles[];
+extern unsigned char playersprites[];
 
-/* End of BACKGROUNDTILES.H */
+/* End of PLAYERSPRITES.H */

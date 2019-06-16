@@ -60,7 +60,9 @@ dkms.conf
 
 # Gameboy Specific
 */*.gb
+*/*.sav
 */main.lst
 */main.map
 */main.o
 */main.sym
+gc.log

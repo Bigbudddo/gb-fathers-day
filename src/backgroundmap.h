@@ -7,7 +7,7 @@
  Info:
    Section       : 
    Bank          : 0
-   Map size      : 40 x 18
+   Map size      : 20 x 18
    Tile set      : H:\PROGRAMMING FILES\_Github\gb-fathers-day\imgs\backgrounds.gbr
    Plane count   : 1 plane (8 bits)
    Plane order   : Tiles are continues
@@ -18,7 +18,7 @@
 
 */
 
-#define backgroundmapWidth 40
+#define backgroundmapWidth 20
 #define backgroundmapHeight 18
 #define backgroundmapBank 0
 
