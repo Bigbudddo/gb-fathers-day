@@ -1,6 +1,6 @@
 /*
 
- BACKGROUNDMAP.C
+ BACKGROUNDONE.C
 
  Map Source File.
 
@@ -18,11 +18,11 @@
 
 */
 
-#define backgroundmapWidth 20
-#define backgroundmapHeight 18
-#define backgroundmapBank 0
+#define background_1Width 20
+#define background_1Height 18
+#define background_1Bank 0
 
-unsigned char backgroundmap[] =
+unsigned char background_1[] =
 {
   0x25,0x25,0x25,0x25,0x25,0x25,0x25,0x25,0x25,0x25,
   0x25,0x25,0x25,0x25,0x25,0x25,0x25,0x25,0x25,0x25,
@@ -62,4 +62,4 @@ unsigned char backgroundmap[] =
   0x29,0x29,0x29,0x29,0x29,0x29,0x29,0x29,0x29,0x29
 };
 
-/* End of BACKGROUNDMAP.C */
+/* End of BACKGROUNDONE.C */

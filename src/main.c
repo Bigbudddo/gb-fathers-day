@@ -6,7 +6,9 @@
 #include "common.c"
 #include "playersprites.c"
 #include "backgroundtiles.c"
-#include "backgroundmap.c"
+#include "backgroundone.c"
+#include "backgroundtwo.c"
+#include "backgroundthree.c"
 #include "textmap.c"
 
 
@@ -25,6 +27,8 @@ UINT8 currentPlayerSpriteIndex = 0;                                             
 UINT8 lastKeys;																	// HOLDS KEYS FOR THE PREVIOUS FRAME
 UINT8 maxBackgroundCount = 3;
 UINT8 currentBackgroundIndex = 1;
+UINT8 scrollIndex = 23;
+UINT8 maxScrollIndex = 23;
 
 void main() { 
     initGame();
@@ -59,45 +63,33 @@ void initGame(){
     set_win_tiles(0, 0, 32, 1, textmap);                                        // DRAW MY WATERMARK
     move_win(7, 135);                                                           // STOP THE WINDOW LAYER OVERWRITING SPRITES
 
+    set_bkg_data(37, 7, backgroundtiles);
+
     set_sprite_data(0, 2, playersprites);                                       // LOAD PLAYER SPRITES INTO MEMORY
     set_sprite_tile(0, currentPlayerSpriteIndex);
     
     updatebackground();                                                         // LOAD INITIAL BACKGROUND SCENE INTO VRAM
 }
 
-void update(){
+void update() {
     UINT8 canPlayerMove = 1;
-    // RESET PLAYER MOVEMENT CHECK
     playerMovement = 0;
 
-    canPlayerMove = canplayermove(playerX, playerY);
+    canPlayerMove = canplayermove(playerX, playerY, currentBackgroundIndex, scrollIndex, maxScrollIndex);
     if (canPlayerMove == 1) {
-        // UP
-        if (joypad() & J_UP) {
-            playerMovement = 1;
-            playerY-=playerSpeed;
-        }
-
-        // DOWN
-        if (joypad() & J_DOWN) {
-            playerMovement = 1;
-            playerY+=playerSpeed;
-        }
-
-        // LEFT
-        if (joypad() & J_LEFT) {
-            playerMovement = 1;
-            playerX-=playerSpeed;
-        }	
-
-        // RIGHT
         if (joypad() & J_RIGHT) {
+            // we only want to check the right for now
             playerMovement = 1;
             playerX+=playerSpeed;
         }
     } else if (canPlayerMove == 2){
         currentBackgroundIndex++;
         updatebackground();
+    } else if (canPlayerMove == 3) {
+        if (scrollIndex > 0) {
+            scroll_bkg(3, 0);
+            scrollIndex--;
+        }
     }
 }
 
@@ -114,20 +106,21 @@ void updatebackground() {
     playerX = 15;
     playerY = 125;
     move_sprite(0, playerX, playerY);
+
+    // move the background position back to the start
+    scrollIndex = maxScrollIndex;
+    move_bkg(0, 0);
     
     switch (currentBackgroundIndex) {
         case 2:
-            set_bkg_data(37, 7, backgroundtiles);
-            set_bkg_tiles(0, 0, 20, 18, backgroundmap);
+            set_bkg_tiles(0, 0, 40, 18, background_2);
             break;
         case 3:
-            set_bkg_data(37, 7, backgroundtiles);
-            set_bkg_tiles(0, 0, 20, 18, backgroundmap);
+            set_bkg_tiles(0, 0, 20, 18, background_3);
             break;
         case 1:
         default:
-            set_bkg_data(37, 7, backgroundtiles);
-            set_bkg_tiles(0, 0, 20, 18, backgroundmap);
+            set_bkg_tiles(0, 0, 20, 18, background_1);
             break;
     }
 
@@ -136,7 +129,6 @@ void updatebackground() {
 }
 
 void draw() {
-    //scroll_bkg(1, 0);
     if (playerMovement == 1) {
         // move the sprite
         move_sprite(0, playerX, playerY);
@@ -147,9 +139,7 @@ void draw() {
         } else{
             currentPlayerSpriteIndex = 0;
         }
+
         set_sprite_tile(0, currentPlayerSpriteIndex);
-    
-        // handle screen collision check
     }
-    
 }

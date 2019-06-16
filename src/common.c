@@ -4,7 +4,7 @@
 UINT8 i, j;
 UBYTE debug = 0;
 
-UINT8 canplayermove(UINT8 playerx, UINT8 playery) {
+UINT8 canplayermove(UINT8 playerx, UINT8 playery, UINT8 backgroundindex, UINT8 scrollIndex, UINT8 maxScrollIndex) {
     UINT16 indexTLx, indexTLy, tileindexTL;
     UINT8 result = 1;
 
@@ -18,8 +18,17 @@ UINT8 canplayermove(UINT8 playerx, UINT8 playery) {
     } 
 
     if (playerx >= 150) {
-        // edge of the map
-        result = 2;
+        if (backgroundindex == 2) {
+            // this is the fathers one that needs to scroll
+            if (scrollIndex == 0 || scrollIndex > maxScrollIndex) {
+                // scroll animation finished, allow move
+                result = 2;
+            } else {
+                result = 3;
+            }
+        } else{
+            result = 2;
+        }
     }
 
     return result;
