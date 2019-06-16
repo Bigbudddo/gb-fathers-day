@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 UINT8 i, j;
-UBYTE debug = 0;
 
 UINT8 canplayermove(UINT8 playerx, UINT8 playery, UINT8 backgroundindex, UINT8 scrollIndex, UINT8 maxScrollIndex) {
     UINT16 indexTLx, indexTLy, tileindexTL;
@@ -11,11 +10,6 @@ UINT8 canplayermove(UINT8 playerx, UINT8 playery, UINT8 backgroundindex, UINT8 s
     indexTLx = (playerx - 8) / 8;
     indexTLy = (playery - 16) / 8;
     tileindexTL = 20 * indexTLy + indexTLx;
-
-    if (debug) {
-        printf("%u %u\n",(UINT16)(playerx),(UINT16)(playery));
-        printf("%u %u %u\n",(UINT16)indexTLx,(UINT16)indexTLy,(UINT16)tileindexTL);   
-    } 
 
     if (playerx >= 150) {
         if (backgroundindex == 2) {
